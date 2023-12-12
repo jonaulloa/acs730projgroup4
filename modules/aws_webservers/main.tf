@@ -98,7 +98,7 @@ resource "aws_instance" "WebServerVM" {
   
   tags = merge(local.default_tags,
     {
-      "Name" = "${var.prefix}WebServerVm${count.index}"
+      "Name" = "${var.prefix}WebServerVm${count.index+1}"
       "Owner" = count.index >= 2 ? "Group4" : "Grp4"
     }
   )
