@@ -1,0 +1,48 @@
+---
+- hosts: tag_Group4
+  gather_facts: True
+  become: yes
+  
+  vars:
+    source_file: ./index.html
+    dest_file: /var/www/html
+    ansible_user: ec2-user
+    ansible_ssh_private_key_file: /home/ec2-user/environment/Final_Test/prod/webservers/.keypair/prod
+
+  tasks:
+    - name: Check SSH connectivity
+      ping:
+
+    - name: Install Apache Web Server
+      yum: name=httpd state=latest
+      when: ansible_os_family == "RedHat"
+      
+    - name: Check httpd service status
+      systemd:
+        name: httpd
+        state: started
+        enabled: yes
+      when: ansible_os_family == "RedHat"
+      register: service_status
+      ignore_errors: yes  # Ignore errors if the service is not installed or running
+    
+    - name: Copy index.html
+      copy: src={{ source_file }} dest={{ dest_file }} mode=0555
+      notify: Restart Httpd
+      when: ansible_os_family == "RedHat"
+
+
+    - name: Update packages
+      yum:
+        name: '*' # Update all installed packages 
+        state: latest
+      when: ansible_os_family == "RedHat" 
+
+    - name: Configure as Control Host
+      command: hostnamectl set-hostname control-host
+      when: service_status is success
+
+  handlers:
+  - name: Restart Httpd
+    service: name=httpd state=restarted
+    when: ansible_os_family == "RedHat"
