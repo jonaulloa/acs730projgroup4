@@ -39,24 +39,24 @@ jobs:
       - name: Terraform fmt - Networking
         run: terraform fmt
         continue-on-error: true
-        working-directory: ${{ github.head_ref }}/prod/network
+        working-directory: ./${{ github.head_ref }}/prod/network
 
       - name: Terraform Init - Networking
         run: terraform init
-        working-directory: ${{ github.head_ref }}/prod/network
+        working-directory: ./${{ github.head_ref }}/prod/network
 
       - name: Terraform Validate - Networking
         run: terraform validate -no-color
-        working-directory: ${{ github.head_ref }}/prod/network
+        working-directory: ./${{ github.head_ref }}/prod/network
 
       - name: Terraform Plan - Networking
         run: terraform plan -input=false -no-color -out tf.plan
-        working-directory: ${{ github.head_ref }}/prod/network
+        working-directory: ./${{ github.head_ref }}/prod/network
         continue-on-error: true
 
       - name: Terraform Show - Networking
         run: terraform show -no-color tf.plan 2>&1 > /tmp/plan.txt
-        working-directory: ${{ github.head_ref }}/prod/network
+        working-directory: ./${{ github.head_ref }}/prod/network
 
       # Repeat similar steps for Webserver or other modules
 
@@ -73,36 +73,36 @@ jobs:
       - name: Terraform Apply - Networking
         if: github.ref == 'refs/heads/prod' && github.event_name == 'push'
         run: terraform apply -input=false tf.plan
-        working-directory: ${{ github.head_ref }}/prod/network
+        working-directory: ./${{ github.head_ref }}/prod/network
         shell: bash
 
       - name: Terraform fmt - Webserver
         run: terraform fmt
         continue-on-error: true
-        working-directory: ${{ github.head_ref }}/prod/webservers
+        working-directory: ./${{ github.head_ref }}/prod/webservers
 
       - name: Terraform Init - Webserver
         run: terraform init
-        working-directory: ${{ github.head_ref }}/prod/webservers
+        working-directory: ./${{ github.head_ref }}/prod/webservers
 
       - name: Terraform Validate - Webserver
         run: terraform validate -no-color
-        working-directory: ${{ github.head_ref }}/prod/webservers
+        working-directory: ./${{ github.head_ref }}/prod/webservers
 
       - name: Terraform Plan - Webserver
         run: terraform plan -input=false -no-color -out tf.plan
-        working-directory: ${{ github.head_ref }}/prod/webservers
+        working-directory: ./${{ github.head_ref }}/prod/webservers
         continue-on-error: true
 
       - name: Terraform Show - Webserver
         run: terraform show -no-color tf.plan 2>&1 > /tmp/plan.txt
-        working-directory: ${{ github.head_ref }}/prod/webservers
+        working-directory: ./${{ github.head_ref }}/prod/webservers
 
       # Conditional Apply for Webserver
       - name: Terraform Apply - Webserver
         if: github.ref == 'refs/heads/prod' && github.event_name == 'push'
         run: terraform apply -input=false tf.plan
-        working-directory: ${{ github.head_ref }}/prod/webservers
+        working-directory: ./${{ github.head_ref }}/prod/webservers
         shell: bash
 
   
