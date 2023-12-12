@@ -99,15 +99,6 @@ jobs:
       - name: Terraform Show - Webserver
         run: terraform show -no-color tf.plan 2>&1 > /tmp/plan.txt
         working-directory: ./${{ github.head_ref }}/prod/webservers
-
-    
-      - name: Get result
-        run: echo "${{ steps.validate.outputs.stdout }}"
-      
-      - name: Terraform Show - EC2
-        id: show_ec2
-        run: terraform show -no-color tf.plan 2>&1 > /tmp/plan.txt
-        working-directory: ./prod/webservers # Use your environment folder
           
       - uses: actions/github-script@v6
         if: github.event_name == 'pull_request'
