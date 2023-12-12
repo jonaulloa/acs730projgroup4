@@ -3,12 +3,12 @@ name: "Terraform Workflow for Two-Tier Web App - Group4"
 on:
   push:
     branches:
-      - prod
+     # - prod
       - staging
 
   pull_request:
     branches:
-      - prod
+      # - prod
       - staging
 
 permissions:
@@ -76,11 +76,6 @@ jobs:
         working-directory: ./environments/${{ github.head_ref }}/networking
         shell: bash
 
-      # Repeat similar steps for Webserver or other modules
-
-            # ... [Previous steps for the networking module]
-
-      # Steps for Webserver Module
       - name: Terraform fmt - Webserver
         run: terraform fmt
         continue-on-error: true
@@ -110,7 +105,5 @@ jobs:
         working-directory: ./environments/${{ github.head_ref }}/webserver
         shell: bash
 
-      # Placeholder for Other Modules
-      # Repeat the above steps for each additional module you have in your Terraform configuration.
-      # Replace 'webserver' with the name of your module in each step.
+  
 
