@@ -3,6 +3,11 @@ yum -y update
 yum -y install httpd
 myip=`curl http://169.254.169.254/latest/meta-data/local-ipv4`
 myenv=`curl http://169.254.169.254/latest/meta-data/tags/instance/env`
-echo "<h1>Welcome! <br> Daphne Denise Ramos! My IP is $myip.<br> My environment is $myenv. $myip"  >  /var/www/html/index.html
+echo "<h1><center>GROUP 4 ACS730 FINAL PROJECT<br>Members:<br> Daphne Denise Ramos <br>
+Jonalyn Ulloa <br>
+Rose Ann Camantes <br>
+Michael Concepcion <br>
+Augustine Opoku Junior Antwi <br>
+! My IP is $myip.<br> My environment is $myenv. $myip"  >  /var/www/html/index.html
 sudo systemctl start httpd
 sudo systemctl enable httpd
