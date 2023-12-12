@@ -63,7 +63,7 @@ resource "aws_instance" "PrivateVM" {
 
   tags = merge(local.default_tags,
     {
-      "Name" = "${var.prefix}Vm${count.index}"
+      "Name" = "${var.prefix}Vm${count.index+5}"
     }
   )
 }
