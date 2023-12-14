@@ -125,6 +125,6 @@ Group 4:
 
 >	Ulloa, Jonalyn
 
->Opoku Junior Antwi, Augustine
+> Antwi, Augustine Opoku Junior
 
 
